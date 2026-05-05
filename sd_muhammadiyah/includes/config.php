@@ -137,3 +137,25 @@ function uploadFile(array $file, string $dir = ''): string|false {
     if (!is_dir(dirname($dest))) mkdir(dirname($dest), 0755, true);
     return move_uploaded_file($file['tmp_name'], $dest) ? $name : false;
 }
+
+// Tambahkan di bagian bawah config.php
+function get_badge_new($date) {
+    $post_date = strtotime($date);
+    $current_date = time();
+    $diff = ($current_date - $post_date) / (60 * 60 * 24); // Hitung selisih hari
+
+    if ($diff <= 7) {
+        return '<span class="badge-new">
+                    <i data-lucide="sparkles" class="w-3 h-3"></i> TERBARU
+                </span>';
+    }
+    return '';
+}
+
+// Helper untuk mengambil setting dari DB dengan mudah
+function get_setting($pdo, $key) {
+    $stmt = $pdo->prepare("SELECT setting_value FROM settings WHERE setting_key = ?");
+    $stmt->execute([$key]);
+    $res = $stmt->fetch();
+    return $res ? $res['setting_value'] : '';
+}
