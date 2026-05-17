@@ -1,0 +1,418 @@
+/* =========================================================
+   NEO FUTURE SYSTEM
+   Experimental Cinematic Academic Interface
+========================================================= */
+
+:root {
+    --neo-bg: #ffffff;
+    --neo-text: #0f172a;
+    --neo-muted: #64748b;
+    --neo-border: rgba(255, 255, 255, .45);
+
+    --neo-cyan: #6ee7f9;
+    --neo-blue: #38bdf8;
+    --neo-violet: #8b5cf6;
+    --neo-gold: #d4af37;
+
+    --neo-shadow:
+        0 20px 80px rgba(15, 23, 42, .08);
+
+    --neo-glass:
+        rgba(255, 255, 255, .42);
+}
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background:
+        radial-gradient(circle at top left,
+            rgba(110, 231, 249, .16),
+            transparent 28%),
+
+        radial-gradient(circle at top right,
+            rgba(139, 92, 246, .12),
+            transparent 24%),
+
+        linear-gradient(180deg,
+            #ffffff 0%,
+            #f8fafc 100%);
+
+    overflow-x: hidden;
+}
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+#navbar {
+    position: fixed;
+    top: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: min(94%, 1320px);
+
+    z-index: 100;
+
+    border-radius: 30px;
+
+    background:
+        rgba(255, 255, 255, .48);
+
+    backdrop-filter:
+        blur(30px) saturate(180%);
+
+    border:
+        1px solid rgba(255, 255, 255, .55);
+
+    box-shadow:
+        0 30px 120px rgba(15, 23, 42, .08);
+
+    transition:
+        all .45s cubic-bezier(.16, 1, .3, 1);
+}
+
+#navbar::before {
+    content: '';
+
+    position: absolute;
+    inset: 0;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(135deg,
+            rgba(255, 255, 255, .52),
+            rgba(255, 255, 255, .04));
+
+    pointer-events: none;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.future-hero {
+    min-height: 100vh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+}
+
+.future-hero-content {
+    position: relative;
+    z-index: 4;
+}
+
+.future-title {
+    font-size: clamp(4rem, 10vw, 8rem);
+
+    line-height: .88;
+
+    letter-spacing: -.08em;
+
+    color: var(--neo-text);
+}
+
+.future-gradient {
+    background:
+        linear-gradient(90deg,
+            #0f172a 0%,
+            #0f172a 35%,
+            #7c3aed 70%,
+            #38bdf8 100%);
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.future-description {
+    max-width: 720px;
+
+    font-size: 1.1rem;
+
+    line-height: 1.9;
+
+    color: var(--neo-muted);
+}
+
+/* =========================================================
+   ORB SYSTEM
+========================================================= */
+
+.future-orb {
+    position: absolute;
+
+    border-radius: 9999px;
+
+    filter: blur(80px);
+
+    opacity: .72;
+
+    mix-blend-mode: screen;
+
+    animation:
+        orbFloat 14s ease-in-out infinite alternate;
+}
+
+.future-orb.one {
+    width: 420px;
+    height: 420px;
+
+    top: -120px;
+    left: -120px;
+
+    background:
+        rgba(110, 231, 249, .32);
+}
+
+.future-orb.two {
+    width: 360px;
+    height: 360px;
+
+    right: -100px;
+    bottom: -100px;
+
+    background:
+        rgba(139, 92, 246, .22);
+}
+
+.future-orb.three {
+    width: 280px;
+    height: 280px;
+
+    left: 40%;
+    top: 20%;
+
+    background:
+        rgba(255, 255, 255, .9);
+}
+
+/* =========================================================
+   GLASS SYSTEM
+========================================================= */
+
+.future-glass {
+    background:
+        rgba(255, 255, 255, .42);
+
+    border:
+        1px solid rgba(255, 255, 255, .58);
+
+    backdrop-filter:
+        blur(30px);
+
+    box-shadow:
+        var(--neo-shadow);
+}
+
+/* =========================================================
+   FLOATING PANELS
+========================================================= */
+
+.future-panel {
+    border-radius: 30px;
+
+    padding: 28px;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.future-panel::before {
+    content: '';
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(135deg,
+            rgba(255, 255, 255, .42),
+            rgba(255, 255, 255, .06));
+
+    pointer-events: none;
+}
+
+/* =========================================================
+   MOTION
+========================================================= */
+
+.future-float {
+    animation:
+        floatLayer 8s ease-in-out infinite alternate;
+}
+
+.future-reveal {
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+@keyframes orbFloat {
+    from {
+        transform:
+            translate3d(0, 0, 0) scale(1);
+    }
+
+    to {
+        transform:
+            translate3d(0, -40px, 0) scale(1.08);
+    }
+}
+
+@keyframes floatLayer {
+    from {
+        transform: translateY(0px);
+    }
+
+    to {
+        transform: translateY(-18px);
+    }
+}
+
+/* =========================================================
+   CINEMATIC NAVIGATION
+========================================================= */
+
+.nav-link {
+    position: relative;
+
+    transition:
+        all .4s cubic-bezier(.16, 1, .3, 1);
+}
+
+.nav-link::after {
+
+    content: '';
+
+    position: absolute;
+
+    left: 50%;
+    bottom: -8px;
+
+    width: 0;
+    height: 2px;
+
+    background:
+        linear-gradient(90deg,
+            var(--neo-violet),
+            var(--neo-blue));
+
+    transform:
+        translateX(-50%);
+
+    transition:
+        width .4s cubic-bezier(.16, 1, .3, 1);
+}
+
+.nav-link:hover {
+
+    color:
+        var(--neo-violet);
+
+    transform:
+        translateY(-2px);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* =========================================================
+   MOBILE FUTURE MENU
+========================================================= */
+
+.mobile-future-menu {
+
+    background:
+        rgba(255, 255, 255, .72);
+
+    backdrop-filter:
+        blur(30px);
+
+    border:
+        1px solid rgba(255, 255, 255, .45);
+
+    border-radius:
+        28px;
+
+    box-shadow:
+        0 40px 120px rgba(15, 23, 42, .12);
+}
+
+/* =========================================================
+   SPATIAL DEPTH
+========================================================= */
+
+.future-depth-layer {
+
+    transform-style:
+        preserve-3d;
+
+    perspective:
+        1400px;
+}
+
+.future-depth-card {
+
+    transform:
+        translateZ(0px);
+
+    transition:
+        transform .8s cubic-bezier(.16, 1, .3, 1);
+}
+
+.future-depth-card:hover {
+
+    transform:
+        translateZ(80px) rotateX(4deg) rotateY(-4deg);
+}
+
+.future-glow-line {
+
+    position: absolute;
+
+    width: 200px;
+    height: 2px;
+
+    background:
+        linear-gradient(90deg,
+            transparent,
+            rgba(56, 189, 248, .9),
+            transparent);
+
+    filter:
+        blur(2px);
+
+    opacity: .8;
+
+    animation:
+        glowTravel 8s linear infinite;
+}
+
+@keyframes glowTravel {
+
+    from {
+        transform:
+            translateX(-200px);
+    }
+
+    to {
+        transform:
+            translateX(120vw);
+    }
+}

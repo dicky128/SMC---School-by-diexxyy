@@ -108,6 +108,16 @@ $labelClass = [
 
     <!-- Premium CSS -->
     <link rel="stylesheet" href="<?= APP_URL ?>/assets/css/light3d.css">
+    <link rel="stylesheet"
+      href="<?= APP_URL ?>/assets/css/neo-future-system.css">
+    <link rel="stylesheet"
+      href="<?= APP_URL ?>/assets/css/neo-future-atmosphere.css">
+    <link rel="stylesheet"
+      href="<?= APP_URL ?>/assets/css/neo-future-cards.css">
+    <link rel="stylesheet"
+      href="<?= APP_URL ?>/assets/css/neo-future-cursor.css">
+    <link rel="stylesheet"
+      href="<?= APP_URL ?>/assets/css/neo-future-loader.css">
 
     <style>
         /* Base font override */
@@ -146,6 +156,8 @@ $labelClass = [
     </style>
 </head>
 <body class="light-mode bg-white overflow-x-hidden">
+
+<?php include ROOT_PATH . 'includes/components/futuristic-loader.php'; ?>
 
 <!-- Scroll Progress Bar -->
 <div id="scroll-progress"></div>

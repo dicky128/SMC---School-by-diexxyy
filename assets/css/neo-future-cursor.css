@@ -1,0 +1,62 @@
+/* =========================================================
+   FUTURISTIC CURSOR
+========================================================= */
+
+.future-cursor {
+
+    width: 22px;
+    height: 22px;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    border-radius: 9999px;
+
+    pointer-events: none;
+
+    z-index: 9999;
+
+    background:
+        radial-gradient(circle,
+            rgba(255, 255, 255, .95),
+            rgba(56, 189, 248, .45));
+
+    mix-blend-mode: screen;
+
+    transform:
+        translate(-50%, -50%);
+
+    transition:
+        transform .08s linear;
+
+    box-shadow:
+        0 0 40px rgba(56, 189, 248, .6);
+}
+
+.future-cursor-ring {
+
+    width: 60px;
+    height: 60px;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    border-radius: 9999px;
+
+    border:
+        1px solid rgba(56, 189, 248, .4);
+
+    pointer-events: none;
+
+    z-index: 9998;
+
+    transform:
+        translate(-50%, -50%);
+
+    transition:
+        all .18s ease-out;
+}

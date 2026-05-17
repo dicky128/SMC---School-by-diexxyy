@@ -436,6 +436,7 @@ $siteName = $profileData['school_name'] ?? APP_NAME;
 
 })();
 </script>
+<script src="<?= APP_URL ?>/assets/js/neo-future-motion.js"></script>
 
 <!-- External scripts (existing) -->
 <script src="<?= APP_URL ?>/assets/js/scroll3d.js"   defer></script>
