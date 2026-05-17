@@ -1,0 +1,193 @@
+/*
+ * assets/css/custom.css
+ * SD Muhammadiyah 1 Gentasari — FINAL PRESCRIBED VERSION
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
+
+/* ══════════════════════════════════════════════════════════
+   1. DESIGN TOKENS (Enhanced)
+══════════════════════════════════════════════════════════ */
+:root {
+  /* Gold & Silver palette */
+  --gold-300: #f0d898;
+  --gold-400: #e8c860;
+  --gold-500: #d4aa3a;
+  --silver-accent: rgba(224, 224, 224, 0.6);
+
+  /* Improved Glass surfaces */
+  --glass-bg:         rgba(255, 255, 255, 0.06);
+  --glass-bg-hover:   rgba(255, 255, 255, 0.12);
+  --glass-bg-strong:  rgba(255, 255, 255, 0.14);
+  --glass-border:     rgba(255, 255, 255, 0.12);
+  
+  /* Blur levels (The 2026 Standard) */
+  --blur-md:  blur(16px) saturate(1.8);
+  --blur-lg:  blur(24px) saturate(2);
+
+  /* Typography */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'Inter', 'DM Sans', system-ui, sans-serif; /* Priority on Inter for modern feel */
+
+  /* Transitions */
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ══════════════════════════════════════════════════════════
+   2. GLOBAL & BASE REFINEMENT
+══════════════════════════════════════════════════════════ */
+body {
+  font-family: var(--font-body);
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+}
+
+/* Slim Premium Scrollbar */
+::-webkit-scrollbar            { width: 4px; }
+::-webkit-scrollbar-track      { background: #050505; }
+::-webkit-scrollbar-thumb      { background: var(--gold-500); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover{ background: var(--gold-400); }
+
+/* ══════════════════════════════════════════════════════════
+   3. THE AESTHETIC POLISH (New Components)
+══════════════════════════════════════════════════════════ */
+
+/* Glass Card with Depth */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  border: 1px solid var(--glass-border);
+  transition: all 0.4s var(--ease-spring);
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+  background: var(--glass-bg-hover);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(212, 170, 58, 0.2);
+}
+
+/* Premium Gold Shimmer (Refined) */
+.text-shimmer {
+  background: linear-gradient(
+    to right, 
+    #bf953f 0%, 
+    #fcf6ba 25%, 
+    #b38728 50%, 
+    #fbf5b7 75%, 
+    #aa771c 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text; /* Vendor prefix untuk Chrome/Safari */
+  background-clip: text;         /* Properti standar (Tambahkan baris ini) */
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+@keyframes shimmer {
+  to { background-position: 200% center; }
+}
+
+/* Announcement Badge Timer (Live Effect) */
+.badge-new {
+  position: relative;
+  overflow: hidden;
+  background: rgba(212, 170, 58, 0.15);
+  border: 1px solid rgba(212, 170, 58, 0.4);
+  color: var(--gold-300);
+  animation: badgePulse 2.5s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 170, 58, 0.4); }
+  50%      { box-shadow: 0 0 0 6px rgba(212, 170, 58, 0); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   4. NAVIGATION & BUTTONS (Merged)
+══════════════════════════════════════════════════════════ */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--gold-500);
+  transform: scaleX(0);
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  transform: scaleX(1);
+}
+
+.btn-premium {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.8rem 1.8rem;
+  border-radius: 99px;
+  background: var(--glass-bg);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: var(--blur-md);
+  color: #fff;
+  transition: all 0.3s var(--ease-spring);
+}
+
+.btn-premium:hover {
+  background: #fff;
+  color: #000;
+  transform: scale(1.05);
+}
+
+/* ══════════════════════════════════════════════════════════
+   5. UTILITIES (Forms & Layout)
+══════════════════════════════════════════════════════════ */
+
+/* Custom Prose for Announcements */
+.prose-custom p {
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1.25rem;
+}
+
+/* Floating Label Animation Support */
+.input-float.focused label,
+.input-float.has-value label {
+  transform: translateY(-1.5rem) scale(0.85);
+  color: var(--gold-400);
+}
+
+/* Hero Background Fixed (Desktop Only) */
+@media (min-width: 1024px) {
+  .hero-bg, .page-hero {
+    background-attachment: fixed;
+  }
+}
+
+/* Ornament Divider */
+.ornament-divider::before,
+.ornament-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-500), transparent);
+  opacity: 0.4;
+}
+
+/* ══════════════════════════════════════════════════════════
+   6. RESPONSIVE REFINEMENT
+══════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .glass-card:hover {
+    transform: none; /* Disable hover lift on touch devices */
+  }
+}
