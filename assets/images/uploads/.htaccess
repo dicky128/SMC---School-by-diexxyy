@@ -1,0 +1,42 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# assets/images/uploads/.htaccess
+# CRITICAL: Block all PHP/script execution inside upload directory.
+# Prevents uploaded web shells / remote code execution.
+# ─────────────────────────────────────────────────────────────────────────────
+
+Options -Indexes -ExecCGI
+
+# ── Block ALL script execution ────────────────────────────────────────────
+<FilesMatch "\.(php|php3|php4|php5|php7|phtml|phar|pl|py|cgi|sh|asp|aspx|jsp|htaccess|htpasswd|config|ini|env|sql|xml|json|html|htm|shtml|shtm)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# ── Only allow safe image/document types ─────────────────────────────────
+<FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico|pdf)$">
+  <IfModule mod_authz_core.c>
+    Require all granted
+  </IfModule>
+</FilesMatch>
+
+# ── Disable script handlers ───────────────────────────────────────────────
+<IfModule mod_php.c>
+  php_flag engine off
+</IfModule>
+
+AddType text/plain .php .php3 .php4 .php5 .phtml .phar
+
+# ── Caching for images ────────────────────────────────────────────────────
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg  "access plus 1 month"
+  ExpiresByType image/png   "access plus 1 month"
+  ExpiresByType image/webp  "access plus 1 month"
+  ExpiresByType image/gif   "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 month"
+</IfModule>

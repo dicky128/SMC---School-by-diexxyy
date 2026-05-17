@@ -1,0 +1,1477 @@
+/*
+ * light3d.css — SD Muhammadiyah 01 Gentasari
+ * VERSI FINAL PREMIUM — Refined, Cinematic, International-School Grade
+ * Perbaikan: Remove cyber, reduce pink, floating navbar, premium typography
+ */
+
+/* =========================================================
+   1. DESIGN TOKENS — CSS Variables
+   ========================================================= */
+:root {
+  /* --- Font System --- */
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+  /* --- Neutral Surface Palette --- */
+  --surface-1: #ffffff;
+  --surface-2: #f8fafc;
+  --surface-3: #f1f5f9;
+  --surface-4: #e2e8f0;
+
+  /* --- Text Hierarchy --- */
+  --text-1: #0f172a;
+  --text-2: #1e293b;
+  --text-3: #334155;
+  --text-4: #64748b;
+  --text-5: #94a3b8;
+
+  /* --- Accent: Gold (Primary) --- */
+  --gold-100: #fef9e7;
+  --gold-300: #fce08f;
+  --gold-400: #e8c860;
+  --gold-500: #d4af37;
+  --gold-600: #b48608;
+  --gold-700: #92600a;
+
+  /* --- Accent: Slate (Secondary/CTA) --- */
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+
+  /* --- Pink (Tertiary — category badges only) --- */
+  --pink-100: #fdf2f8;
+  --pink-300: #f9a8d4;
+  --pink-400: #f472b6;
+  --pink-500: #ec4899;
+  --pink-600: #db2777;
+  --pink-700: #be185d;
+
+  /* --- Sky (Tertiary — info badges) --- */
+  --sky-100: #f0f9ff;
+  --sky-400: #38bdf8;
+  --sky-600: #0284c7;
+  --sky-700: #0369a1;
+
+  /* --- Border --- */
+  --border-1: rgba(0, 0, 0, 0.05);
+  --border-2: rgba(0, 0, 0, 0.09);
+  --border-3: rgba(0, 0, 0, 0.14);
+  --border-light: rgba(255, 255, 255, 0.80);
+
+  /* --- Glass --- */
+  --glass-bg: rgba(255, 255, 255, 0.80);
+  --glass-bg-strong: rgba(255, 255, 255, 0.92);
+  --glass-border: rgba(255, 255, 255, 0.88);
+  --glass-blur: blur(14px) saturate(1.3);
+
+  /* --- Gradient --- */
+  --grad-gold: linear-gradient(135deg, #d4af37 0%, #b48608 100%);
+  --grad-slate: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  --grad-hero: linear-gradient(160deg, rgba(8, 12, 20, 0.58) 0%, rgba(8, 12, 20, 0.22) 55%, rgba(8, 12, 20, 0.42) 100%);
+
+  /* --- Shadow --- */
+  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.07), 0 2px 6px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.09), 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.10), 0 6px 16px rgba(0, 0, 0, 0.07);
+  --shadow-2xl: 0 24px 64px rgba(0, 0, 0, 0.12), 0 8px 24px rgba(0, 0, 0, 0.08);
+
+  /* --- Easing --- */
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0.0, 0, 0.2, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* --- Duration --- */
+  --dur-fast: 180ms;
+  --dur-normal: 280ms;
+  --dur-slow: 420ms;
+}
+
+
+/* =========================================================
+   2. BASE RESET
+   ========================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body.light-mode {
+  font-family: var(--font-body);
+  background-color: var(--surface-1);
+  color: var(--text-3);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface-3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface-4);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1;
+}
+
+
+/* =========================================================
+   3. FLOATING NAVBAR
+   ========================================================= */
+.navbar-light {
+  position: fixed;
+  top: 0.875rem;
+  left: 1rem;
+  right: 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.76);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.88);
+  box-shadow:
+    0 2px 20px rgba(0, 0, 0, 0.06),
+    0 1px 0 rgba(255, 255, 255, 0.9) inset;
+  z-index: 100;
+  transition:
+    top var(--dur-normal) var(--ease-spring),
+    background var(--dur-normal),
+    box-shadow var(--dur-normal),
+    border-radius var(--dur-slow) var(--ease-spring);
+}
+
+.navbar-light.scrolled {
+  top: 0.4rem;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow:
+    0 4px 28px rgba(0, 0, 0, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.95) inset;
+}
+
+/* Nav links */
+.nav-link-light {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-3);
+  text-decoration: none;
+  padding: 0.35rem 0;
+  letter-spacing: 0.01em;
+  position: relative;
+  transition: color var(--dur-fast) var(--ease-out);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-link-light::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--gold-500);
+  border-radius: 99px;
+  transition: width var(--dur-normal) var(--ease-spring);
+}
+
+.nav-link-light:hover {
+  color: var(--text-1);
+}
+
+.nav-link-light:hover::after,
+.nav-link-light.active::after {
+  width: 100%;
+}
+
+.nav-link-light.active {
+  color: var(--text-1);
+}
+
+/* Dropdown */
+.dropdown-menu-light {
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px) scale(0.98);
+  transition:
+    opacity var(--dur-normal) var(--ease-spring),
+    transform var(--dur-normal) var(--ease-spring),
+    visibility var(--dur-normal);
+  will-change: transform, opacity;
+}
+
+.dropdown:hover .dropdown-menu-light {
+  pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.dropdown-item-light {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-3);
+  text-decoration: none;
+  transition: all var(--dur-fast) var(--ease-out);
+  border-radius: 8px;
+  margin: 2px 4px;
+}
+
+.dropdown-item-light:hover {
+  background: var(--gold-100);
+  color: var(--gold-700);
+}
+
+.dropdown-item-light .item-icon {
+  color: var(--text-5);
+  flex-shrink: 0;
+  transition: color var(--dur-fast);
+}
+
+.dropdown-item-light:hover .item-icon {
+  color: var(--gold-600);
+}
+
+/* Mobile menu */
+#mobile-menu {
+  transform: translateX(100%);
+  transition: transform 0.38s var(--ease-spring);
+}
+
+#mobile-menu.open {
+  transform: translateX(0);
+}
+
+
+/* =========================================================
+   4. BUTTONS
+   ========================================================= */
+.btn-primary-light {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.75rem;
+  border-radius: 100px;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--grad-slate);
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(30, 41, 59, 0.22), 0 1px 3px rgba(30, 41, 59, 0.15);
+  transition:
+    transform var(--dur-fast) var(--ease-spring),
+    box-shadow var(--dur-fast) var(--ease-spring);
+  white-space: nowrap;
+}
+
+.btn-primary-light:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(30, 41, 59, 0.30), 0 2px 6px rgba(30, 41, 59, 0.18);
+}
+
+.btn-primary-light:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-outline-light {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.75rem;
+  border-radius: 100px;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--border-2);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform var(--dur-fast) var(--ease-spring),
+    box-shadow var(--dur-fast),
+    background var(--dur-fast),
+    border-color var(--dur-fast);
+  white-space: nowrap;
+}
+
+.btn-outline-light:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: var(--border-3);
+  color: var(--text-1);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Hero white variant */
+.btn-hero-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.75rem;
+  border-radius: 100px;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease-spring);
+  white-space: nowrap;
+}
+
+.btn-hero-outline:hover {
+  background: rgba(255, 255, 255, 0.20);
+  border-color: rgba(255, 255, 255, 0.50);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   5. GLASS CARDS
+   ========================================================= */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm), 0 0 0 1px rgba(0, 0, 0, 0.02);
+  transition:
+    box-shadow var(--dur-normal) var(--ease-out),
+    transform var(--dur-normal) var(--ease-spring),
+    background var(--dur-normal);
+}
+
+.glass-card:hover {
+  background: var(--glass-bg-strong);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(0, 0, 0, 0.03);
+}
+
+/* Variants */
+.glass-card-gold {
+  background: rgba(254, 249, 231, 0.82);
+  border-color: rgba(212, 175, 55, 0.22);
+}
+
+.glass-card-sky {
+  background: rgba(240, 249, 255, 0.82);
+  border-color: rgba(56, 189, 248, 0.18);
+}
+
+.glass-card-pink {
+  background: rgba(253, 242, 248, 0.82);
+  border-color: rgba(244, 114, 182, 0.15);
+}
+
+/* Lift card on hover */
+.lift-card {
+  transition:
+    transform var(--dur-normal) var(--ease-spring),
+    box-shadow var(--dur-normal) var(--ease-out);
+}
+
+.lift-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+
+/* =========================================================
+   6. TILT CARDS (3D hover)
+   ========================================================= */
+.tilt-card {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  cursor: default;
+}
+
+.tilt-inner {
+  transform-style: preserve-3d;
+  transition: transform 0.6s var(--ease-spring);
+}
+
+.tilt-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.tilt-card:hover .tilt-shine {
+  opacity: 1;
+}
+
+
+/* =========================================================
+   7. SECTION LABELS
+   ========================================================= */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.28rem 0.85rem;
+  border-radius: 100px;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.section-label-gold {
+  background: var(--gold-100);
+  color: var(--gold-700);
+  border: 1px solid rgba(212, 175, 55, 0.22);
+}
+
+.section-label-slate {
+  background: var(--surface-3);
+  color: var(--text-3);
+  border: 1px solid var(--border-2);
+}
+
+.section-label-sky {
+  background: var(--sky-100);
+  color: var(--sky-700);
+  border: 1px solid rgba(56, 189, 248, 0.20);
+}
+
+/* Pink — HANYA untuk badge kategori konten, bukan UI chrome */
+.section-label-pink {
+  background: var(--pink-100);
+  color: var(--pink-700);
+  border: 1px solid rgba(236, 72, 153, 0.14);
+}
+
+/* Light variant for dark backgrounds */
+.section-label-light {
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.90);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+
+/* =========================================================
+   8. ICON BADGES
+   ========================================================= */
+.icon-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon-badge-gold {
+  background: var(--gold-100);
+  color: var(--gold-600);
+  border: 1px solid rgba(212, 175, 55, 0.18);
+}
+
+.icon-badge-sky {
+  background: var(--sky-100);
+  color: var(--sky-600);
+  border: 1px solid rgba(56, 189, 248, 0.18);
+}
+
+.icon-badge-slate {
+  background: var(--surface-3);
+  color: var(--text-3);
+  border: 1px solid var(--border-2);
+}
+
+/* Pink badge — hanya untuk konten tertentu */
+.icon-badge-pink {
+  background: var(--pink-100);
+  color: var(--pink-600);
+  border: 1px solid rgba(236, 72, 153, 0.14);
+}
+
+
+/* =========================================================
+   9. ORNAMENT LINES
+   ========================================================= */
+.ornament-line {
+  flex: 1;
+  max-width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-400), transparent);
+  opacity: 0.6;
+}
+
+
+/* =========================================================
+   10. ORB BACKGROUNDS
+   ========================================================= */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.orb-gold {
+  background: rgba(212, 175, 55, 0.16);
+}
+
+.orb-slate {
+  background: rgba(148, 163, 184, 0.12);
+}
+
+.orb-sky {
+  background: rgba(56, 189, 248, 0.14);
+}
+
+.orb-cream {
+  background: rgba(254, 243, 199, 0.30);
+}
+
+/* Deprecated pink orb — keep for compatibility but reduce opacity */
+.orb-pink {
+  background: rgba(249, 168, 212, 0.10);
+}
+
+
+/* =========================================================
+   11. TEXT GRADIENTS
+   ========================================================= */
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--gold-500) 0%, var(--gold-600) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-slate-gold {
+  background: linear-gradient(135deg, var(--text-1) 0%, var(--gold-500) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Legacy compatibility */
+.text-gradient-pink-gold {
+  background: linear-gradient(135deg, var(--gold-500) 0%, var(--gold-600) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-sky-pink {
+  background: linear-gradient(135deg, var(--sky-600) 0%, var(--gold-500) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+
+/* =========================================================
+   12. DEPTH / SECTION BACKGROUNDS
+   ========================================================= */
+.depth-section {
+  position: relative;
+}
+
+/* Light section variants */
+.bg-surface-1 {
+  background: var(--surface-1);
+}
+
+.bg-surface-2 {
+  background: var(--surface-2);
+}
+
+.bg-surface-3 {
+  background: var(--surface-3);
+}
+
+
+/* =========================================================
+   13. PAGE HERO (inner pages)
+   ========================================================= */
+.page-hero-light {
+  background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%);
+  border-bottom: 1px solid var(--border-1);
+}
+
+
+/* =========================================================
+   14. FOOTER
+   ========================================================= */
+.footer-light {
+  background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-3) 100%);
+  border-top: 1px solid var(--border-1);
+}
+
+
+/* =========================================================
+   15. ANNOUNCEMENT CARD
+   ========================================================= */
+.ann-card-light {
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-spring);
+}
+
+.ann-card-light:hover {
+  background: var(--glass-bg-strong);
+  box-shadow: var(--shadow-md);
+  transform: translateX(4px);
+}
+
+/* "Terbaru" badge — small dot style */
+.badge-new-light {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--pink-700);
+  background: var(--pink-100);
+  border: 1px solid rgba(236, 72, 153, 0.14);
+  padding: 0.18rem 0.6rem;
+  border-radius: 100px;
+}
+
+
+/* =========================================================
+   16. SCROLL REVEAL ANIMATIONS
+   ========================================================= */
+.reveal-fade {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.65s var(--ease-spring),
+    transform 0.65s var(--ease-spring);
+}
+
+.reveal-fade.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-heading {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.75s var(--ease-spring),
+    transform 0.75s var(--ease-spring);
+}
+
+.reveal-heading.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger grid children via JS data-delay */
+.stagger-grid>* {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.55s var(--ease-spring),
+    transform 0.55s var(--ease-spring);
+}
+
+.stagger-grid>*.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* =========================================================
+   17. KEYFRAME ANIMATIONS
+   ========================================================= */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes float-y {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes float-diagonal {
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  33% {
+    transform: translate(6px, -8px) rotate(1deg);
+  }
+
+  66% {
+    transform: translate(-4px, -12px) rotate(-1deg);
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes scroll-dot {
+
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  50% {
+    transform: translateY(6px);
+    opacity: 0.4;
+  }
+}
+
+@keyframes counter-up {
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Utility animation classes */
+.animate-float-y {
+  animation: float-y 5s ease-in-out infinite;
+}
+
+.animate-float-diagonal {
+  animation: float-diagonal 7s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s var(--ease-spring) both;
+}
+
+/* Page entry animation */
+body {
+  animation: page-in 0.4s var(--ease-spring) both;
+}
+
+
+/* =========================================================
+   18. CUSTOM CURSOR
+   ========================================================= */
+#cursor-dot {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: var(--text-1);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s, opacity 0.2s, width 0.2s, height 0.2s;
+}
+
+#cursor-ring {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  border: 1.5px solid rgba(15, 23, 42, 0.22);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s var(--ease-spring), height 0.3s var(--ease-spring), border-color 0.2s;
+}
+
+body.cursor-hover #cursor-ring {
+  width: 44px;
+  height: 44px;
+  border-color: rgba(15, 23, 42, 0.35);
+}
+
+/* Hide native cursor */
+* {
+  cursor: none !important;
+}
+
+/* Touch devices — restore native cursor */
+@media (pointer: coarse) {
+  * {
+    cursor: auto !important;
+  }
+
+  #cursor-dot,
+  #cursor-ring {
+    display: none !important;
+  }
+}
+
+
+/* =========================================================
+   19. SCROLL PROGRESS BAR
+   ========================================================= */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--grad-gold);
+  z-index: 9999;
+  transition: width 0.08s linear;
+}
+
+
+/* =========================================================
+   20. HERO SECTION
+   ========================================================= */
+.hero-stats-bar {
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.hero-stat-item {
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.hero-stat-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.hero-stat-divider {
+  width: 1px;
+  background: rgba(255, 255, 255, 0.15);
+  align-self: stretch;
+}
+
+/* Floating badge chips in hero */
+.hero-badge-chip {
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.90);
+  padding: 0.4rem 0.9rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.5;
+}
+
+.scroll-indicator-text {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.scroll-indicator-mouse {
+  width: 20px;
+  height: 32px;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  padding-top: 6px;
+}
+
+.scroll-indicator-dot {
+  width: 3px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 100px;
+  animation: scroll-dot 2s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   21. GALLERY — CINEMATIC LIGHTBOX
+   ========================================================= */
+#cinema-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(6, 7, 12, 0.97);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease-spring);
+  display: flex;
+  flex-direction: column;
+}
+
+#cinema-lightbox.lb-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#lb-topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding: 1.25rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, rgba(6, 7, 12, 0.85), transparent);
+  transform: translateY(-16px);
+  opacity: 0;
+  transition: all 0.45s 0.15s var(--ease-spring);
+}
+
+#cinema-lightbox.lb-open #lb-topbar {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+#lb-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 5.5rem;
+  position: relative;
+}
+
+#lb-main-img {
+  max-width: 100%;
+  max-height: 68vh;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transform: scale(0.93) translateY(12px);
+  transition: all 0.5s 0.08s var(--ease-spring);
+}
+
+#cinema-lightbox.lb-open #lb-main-img.lb-img-loaded {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.lb-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  cursor: none;
+  color: rgba(255, 255, 255, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s var(--ease-spring);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.lb-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #fff;
+  transform: translateY(-50%) scale(1.06);
+}
+
+#lb-prev {
+  left: 1.25rem;
+}
+
+#lb-next {
+  right: 1.25rem;
+}
+
+#lb-close-btn {
+  width: 42px;
+  height: 42px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  cursor: none;
+  color: rgba(255, 255, 255, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  backdrop-filter: blur(8px);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+#lb-close-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+#lb-bottom {
+  padding: 1rem 1.75rem 1.75rem;
+  background: linear-gradient(to top, rgba(6, 7, 12, 0.92), transparent);
+  transform: translateY(16px);
+  opacity: 0;
+  transition: all 0.45s 0.2s var(--ease-spring);
+}
+
+#cinema-lightbox.lb-open #lb-bottom {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+#lb-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 3.5vw, 2rem);
+  color: rgba(255, 255, 255, 0.92);
+  text-align: center;
+  letter-spacing: -0.01em;
+  line-height: 1.12;
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+#lb-counter {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.30);
+  text-align: center;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+#lb-thumbs {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  overflow-x: auto;
+  padding: 4px 0;
+  scrollbar-width: none;
+}
+
+#lb-thumbs::-webkit-scrollbar {
+  display: none;
+}
+
+.lb-thumb {
+  width: 48px;
+  height: 36px;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: none;
+  flex-shrink: 0;
+  opacity: 0.35;
+  border: 1.5px solid transparent;
+  transition: opacity 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.lb-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lb-thumb.active {
+  opacity: 1;
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: scale(1.06);
+}
+
+.lb-thumb:hover:not(.active) {
+  opacity: 0.65;
+}
+
+/* Gallery grid hover */
+.gallery-item {
+  transition: transform 0.4s var(--ease-spring), box-shadow 0.4s var(--ease-out);
+}
+
+.gallery-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-xl);
+}
+
+.gallery-item img {
+  transition: transform 0.5s var(--ease-smooth), filter 0.4s var(--ease-out);
+}
+
+.gallery-item:hover img {
+  transform: scale(1.06);
+  filter: brightness(0.88);
+}
+
+/* Gallery filter buttons */
+.gallery-filter-btn {
+  padding: 0.4rem 1rem;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--border-2);
+  background: var(--glass-bg);
+  color: var(--text-4);
+  cursor: none;
+  text-decoration: none;
+  transition: all 0.2s var(--ease-spring);
+}
+
+.gallery-filter-btn:hover {
+  border-color: var(--gold-400);
+  color: var(--gold-700);
+  background: var(--gold-100);
+}
+
+.gallery-filter-btn.active {
+  background: var(--grad-slate);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
+
+
+/* =========================================================
+   22. TESTIMONIAL CARD
+   ========================================================= */
+.testimonial-card {
+  background: var(--surface-1);
+  border: 1px solid var(--border-1);
+  border-radius: 20px;
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--dur-normal) var(--ease-out), transform var(--dur-normal) var(--ease-spring);
+}
+
+.testimonial-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+}
+
+.testimonial-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--text-3);
+  line-height: 1.75;
+  margin-bottom: 1.25rem;
+}
+
+.testimonial-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--surface-3);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   23. IMAGE LAZY LOAD BLUR-UP
+   ========================================================= */
+img.lazy-blur {
+  filter: blur(10px);
+  transition: filter 0.6s var(--ease-spring);
+}
+
+img.lazy-blur.lb-loaded {
+  filter: blur(0);
+}
+
+
+/* =========================================================
+   24. EKSKUL CARD SCHEDULE LINE
+   ========================================================= */
+.schedule-line {
+  border-top: 1px solid var(--border-1);
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+}
+
+
+/* =========================================================
+   25. RESPONSIVE — MOBILE ADJUSTMENTS
+   ========================================================= */
+
+/* Navbar: edge-to-edge on mobile for better touch targets */
+@media (max-width: 640px) {
+  .navbar-light {
+    top: 0.5rem;
+    left: 0.5rem;
+    right: 0.5rem;
+    border-radius: 14px;
+  }
+
+  .navbar-light.scrolled {
+    top: 0.25rem;
+  }
+
+  /* Hero: reduce padding, stack properly */
+  .hero-section-inner {
+    padding-top: 6rem !important;
+    padding-bottom: 10rem !important;
+  }
+
+  /* Buttons: full width on mobile */
+  .btn-primary-light,
+  .btn-outline-light,
+  .btn-hero-outline {
+    padding: 0.65rem 1.4rem;
+    font-size: 0.72rem;
+  }
+
+  /* Section spacing */
+  .section-py {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  /* Orbs: hide on very small screens for performance */
+  .orb {
+    display: none;
+  }
+
+  /* Gallery: 2 columns on mobile */
+  .gallery-masonry {
+    columns: 2 !important;
+    gap: 0.5rem !important;
+  }
+
+  /* Lightbox nav: smaller on mobile */
+  .lb-nav-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  #lb-prev {
+    left: 0.5rem;
+  }
+
+  #lb-next {
+    right: 0.5rem;
+  }
+
+  #lb-stage {
+    padding: 4.5rem 3.5rem;
+  }
+
+  #lb-main-img {
+    max-height: 55vh;
+  }
+
+  /* Card grid: 1 col on mobile */
+  .grid-ekskul {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Tilt cards in hero: hide on mobile */
+  .hero-tilt-area {
+    display: none !important;
+  }
+
+  /* Section label: smaller */
+  .section-label {
+    font-size: 0.60rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-masonry {
+    columns: 2 !important;
+  }
+
+  #lb-title {
+    font-size: 1rem;
+  }
+
+  #lb-thumbs {
+    display: none;
+  }
+
+  #lb-stage {
+    padding: 4rem 2.5rem;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .navbar-light {
+    top: 0.75rem;
+    left: 0.75rem;
+    right: 0.75rem;
+  }
+
+  .hero-tilt-area {
+    display: none !important;
+  }
+}
+
+
+/* =========================================================
+   26. REDUCE MOTION (Accessibility)
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .orb {
+    display: none;
+  }
+
+  #cursor-dot,
+  #cursor-ring {
+    display: none;
+  }
+
+  body {
+    animation: none !important;
+  }
+
+  .reveal-fade,
+  .reveal-heading,
+  .stagger-grid>* {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+
+/* =========================================================
+   27. PRINT
+   ========================================================= */
+@media print {
+
+  .navbar-light,
+  #cursor-dot,
+  #cursor-ring,
+  #scroll-progress,
+  .orb,
+  #cinema-lightbox {
+    display: none !important;
+  }
+
+  body {
+    color: #000;
+    background: #fff;
+  }
+
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
+}

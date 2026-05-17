@@ -1,0 +1,262 @@
+You are a senior frontend engineer and premium UI/UX redesign specialist.
+
+==================================================
+MAIN OBJECTIVE
+==================================================
+
+Upgrade the existing frontend into a premium modern international-school quality website.
+
+The website must feel:
+- cinematic
+- immersive
+- expensive
+- elegant
+- futuristic but realistic
+- smooth like Apple
+- clean like Stripe / Linear / Framer
+- premium startup education branding
+- modern global school standard
+
+DO NOT:
+- redesign total architecture unnecessarily
+- remove core functionality
+- create generic AI-looking layouts
+- use cyberpunk neon
+- use excessive glassmorphism
+- create template-like school design
+- overuse gradients
+- overuse animations
+
+==================================================
+IMPORTANT WORKFLOW
+==================================================
+
+FIRST:
+Analyze the existing project carefully:
+- folder structure
+- frontend stack
+- CSS/Tailwind usage
+- reusable components
+- typography system
+- navbar behavior
+- section spacing
+- card system
+- responsiveness
+- gallery implementation
+- animation system
+- shadows and depth
+- color consistency
+- accessibility
+- mobile responsiveness
+
+THEN:
+Provide improvements directly on TOP of the existing design system and structure.
+
+Focus on REFINEMENT instead of rebuilding.
+
+==================================================
+VISUAL DIRECTION
+==================================================
+
+The upgraded frontend should feel:
+
+- premium
+- calm
+- cinematic
+- luxurious
+- modern
+- immersive
+- soft futuristic
+- educational but elite
+- clean and intentional
+
+Visual inspiration:
+- Apple
+- Stripe
+- Linear
+- Framer
+- modern global education startups
+- premium travel storytelling websites
+
+==================================================
+MANDATORY UI IMPROVEMENTS
+==================================================
+
+1. FLOATING NAVBAR
+- floating layout
+- refined glass effect
+- subtle blur
+- thin border
+- premium shadow
+- sticky on scroll
+- shrink slightly on scroll
+- elegant hover transitions
+- cinematic dropdown animations
+
+2. BETTER TYPOGRAPHY
+Improve all typography hierarchy:
+- stronger headlines
+- better spacing
+- more premium font pairing
+- cleaner readability
+- cinematic section titles
+- elegant weight distribution
+
+Suggested fonts:
+- Inter
+- Outfit
+- Plus Jakarta Sans
+- Satoshi
+- General Sans
+
+3. PREMIUM SPACING
+Improve:
+- whitespace
+- section rhythm
+- padding consistency
+- visual breathing room
+- alignment system
+
+Everything should feel more expensive and organized.
+
+4. SUBTLE MOTION
+Add:
+- smooth scrolling
+- soft reveal animations
+- layered hover transitions
+- cinematic fades
+- micro interactions
+- subtle parallax movement
+
+DO NOT over animate.
+
+Motion must feel:
+- smooth
+- invisible
+- premium
+- Apple-like
+
+5. GLASS REFINEMENT
+If glass effects already exist:
+- reduce intensity
+- simplify blur
+- refine transparency
+- improve realism
+
+No fake futuristic glass overload.
+
+6. BETTER SHADOWS
+Improve all shadows:
+- softer
+- layered
+- realistic
+- more premium depth
+
+Avoid:
+- dark harsh shadows
+- cheap glow effects
+
+7. REDUCE PINK TONES
+If current UI contains too much pink:
+- reduce saturation
+- shift toward elegant neutral palette
+- use subtle warm accents instead
+
+==================================================
+VERY IMPORTANT — GALLERY EXPERIENCE
+==================================================
+
+Improve the gallery section into a cinematic immersive experience.
+
+When user clicks a gallery image:
+open a fullscreen cinematic showcase inspired by the reference style I provided.
+
+Required characteristics:
+
+- minimalist UI
+- thin clean navigation icons
+- immersive fullscreen layout
+- bold editorial typography
+- premium storytelling composition
+- floating thumbnail cards
+- subtle layered depth
+- smooth cinematic transitions
+- soft dark atmospheric overlay
+- parallax movement between layers
+- smooth horizontal slide feeling
+
+Typography style should resemble:
+large bold cinematic text like:
+“NAGANO PREFECTURE”
+
+Interaction behavior:
+- smooth open animation
+- elegant close transition
+- premium hover effects
+- layered motion depth
+- modern storytelling feel
+
+The gallery should feel like:
+a luxury travel experience mixed with Apple presentation design.
+
+==================================================
+FRONTEND REFINEMENT TARGETS
+==================================================
+
+Improve existing:
+- hero section
+- navbar
+- dropdown
+- cards
+- buttons
+- gallery
+- section transitions
+- typography hierarchy
+- responsive behavior
+- shadows
+- hover states
+- animations
+- spacing
+- visual consistency
+
+WITHOUT breaking:
+- current functionality
+- backend integration
+- existing content flow
+
+==================================================
+TECHNICAL EXPECTATION
+==================================================
+
+If applicable, optimize using:
+- TailwindCSS refinement
+- GSAP (subtle only)
+- Framer Motion
+- Lenis smooth scroll
+- Swiper.js
+- CSS variables
+- refined backdrop-filter
+
+Prioritize:
+- performance
+- responsiveness
+- smoothness
+- clean architecture
+- maintainable code
+
+==================================================
+OUTPUT EXPECTATION
+==================================================
+
+I want:
+- detailed frontend improvement suggestions
+- specific UI refinement recommendations
+- component-by-component redesign direction
+- animation improvements
+- spacing corrections
+- typography corrections
+- premium interaction improvements
+- modern visual refinement
+
+Do NOT give generic advice.
+Give practical and highly detailed frontend improvements based on the ACTUAL project structure and existing implementation.

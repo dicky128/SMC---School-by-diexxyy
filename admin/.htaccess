@@ -1,0 +1,57 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# admin/.htaccess — Protect Admin Area
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Deny direct listing
+Options -Indexes
+
+# ── IP Whitelist (uncomment & set your server IP in production) ───────────
+# <RequireAll>
+#   Require ip 127.0.0.1
+#   Require ip ::1
+#   Require ip 103.x.x.x
+# </RequireAll>
+
+# ── Block common attack patterns in query strings ─────────────────────────
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Block SQL injection attempts
+  RewriteCond %{QUERY_STRING} (union|select|insert|drop|delete|update|cast|create|char|convert|alter|exec|declare) [NC,OR]
+  RewriteCond %{QUERY_STRING} (<|>|'|%27|%3C|%3E) [NC,OR]
+  RewriteCond %{QUERY_STRING} (\.\./|\.\.) [NC]
+  RewriteRule .* - [F,L]
+
+  # Block XSS
+  RewriteCond %{QUERY_STRING} (<script|javascript:|vbscript:) [NC]
+  RewriteRule .* - [F,L]
+</IfModule>
+
+# ── Session cookie security ───────────────────────────────────────────────
+<IfModule mod_headers.c>
+  Header always set X-Frame-Options "DENY"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Cache-Control "no-cache, no-store, must-revalidate, private"
+  Header always set Pragma "no-cache"
+  Header always set Expires "0"
+</IfModule>
+
+# ── Block direct access to include files ─────────────────────────────────
+<FilesMatch "^(auth|sidebar|admin_head)\.php$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# ── PHP hardening for admin ───────────────────────────────────────────────
+<IfModule mod_php.c>
+  php_flag  display_errors    Off
+  php_flag  log_errors        On
+  php_value session.cookie_httponly 1
+  php_value session.use_strict_mode 1
+  php_value session.cookie_samesite Lax
+</IfModule>

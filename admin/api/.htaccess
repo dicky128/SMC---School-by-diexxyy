@@ -1,0 +1,40 @@
+# admin/api/.htaccess — Protect API endpoints
+Options -Indexes
+
+# Only allow POST and GET (OPTIONS for preflight)
+<LimitExcept POST GET OPTIONS>
+  Deny from all
+</LimitExcept>
+
+# Block direct browser access (require XMLHttpRequest header)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Allow OPTIONS for CORS preflight
+  RewriteCond %{REQUEST_METHOD} OPTIONS
+  RewriteRule .* - [L]
+
+  # Require CSRF header or form token (checked in PHP, this just logs)
+  # Block obvious scanners without proper referer
+  RewriteCond %{HTTP_REFERER} !^https?://%{HTTP_HOST} [NC]
+  RewriteCond %{REQUEST_METHOD} POST
+  RewriteCond %{HTTP:X-Requested-With} !^XMLHttpRequest$ [NC]
+  # Comment out below in dev if testing via Postman
+  # RewriteRule .* - [F,L]
+</IfModule>
+
+# Security headers for API responses
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "DENY"
+  Header set Cache-Control "no-store, no-cache, must-revalidate"
+  Header set Pragma "no-cache"
+  # Prevent API responses from being cached
+  Header unset ETag
+  Header unset Last-Modified
+</IfModule>
+
+# Force JSON content type handling
+<FilesMatch "\.php$">
+  # PHP files only
+</FilesMatch>

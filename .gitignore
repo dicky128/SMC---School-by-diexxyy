@@ -1,0 +1,7 @@
+node_modules/
+vendor/
+*.zip
+*.rar
+*.mp4
+*.psd
+.env

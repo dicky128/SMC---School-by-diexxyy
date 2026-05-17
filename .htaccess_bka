@@ -1,0 +1,203 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# .htaccess — SD Muhammadiyah 1 Gentasari
+# Apache configuration: Security, Routing, Performance, HTTPS
+# ─────────────────────────────────────────────────────────────────────────────
+
+Options -Indexes -MultiViews
+
+# ══════════════════════════════════════════════════════════
+# 1. REWRITE ENGINE
+# ══════════════════════════════════════════════════════════
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /sd_muhammadiyah/
+
+  # ── Force HTTPS (uncomment in production) ──────────────
+  # RewriteCond %{HTTPS} off
+  # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # ── Force www (uncomment if needed) ────────────────────
+  # RewriteCond %{HTTP_HOST} !^www\.
+  # RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # ── Remove trailing slash (except root) ────────────────
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+  # ── Block direct access to includes & admin/includes ───
+  RewriteRule ^includes/       - [F,L]
+  RewriteRule ^admin/includes/ - [F,L]
+
+  # ── Maintenance mode (uncomment when needed) ───────────
+  # RewriteCond %{REQUEST_URI} !^/maintenance\.html
+  # RewriteCond %{REMOTE_ADDR} !^123\.456\.789\.0$
+  # RewriteRule ^ /maintenance.html [R=302,L]
+
+  # ── Pretty URLs for announcement detail ────────────────
+  # /pengumuman/slug → /pages/aktivitas/pengumuman.php?slug=
+  RewriteRule ^pengumuman/([a-z0-9\-]+)/?$ pages/aktivitas/pengumuman.php?slug=$1 [L,QSA]
+</IfModule>
+
+# ══════════════════════════════════════════════════════════
+# 2. SECURITY HEADERS
+# ══════════════════════════════════════════════════════════
+<IfModule mod_headers.c>
+  # Prevent MIME sniffing
+  Header set X-Content-Type-Options "nosniff"
+
+  # Clickjacking protection
+  Header set X-Frame-Options "SAMEORIGIN"
+
+  # XSS filter (legacy browsers)
+  Header set X-XSS-Protection "1; mode=block"
+
+  # Referrer policy
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Permissions policy (restrict powerful APIs)
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
+  # Content Security Policy
+  # Adjust domains as needed for your CDNs
+  Header set Content-Security-Policy "\
+    default-src 'self'; \
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' \
+      https://cdn.tailwindcss.com \
+      https://unpkg.com \
+      https://cdn.jsdelivr.net \
+      https://cdn.quilljs.com; \
+    style-src 'self' 'unsafe-inline' \
+      https://fonts.googleapis.com \
+      https://cdn.quilljs.com; \
+    font-src 'self' https://fonts.gstatic.com; \
+    img-src 'self' data: blob: https://images.unsplash.com; \
+    connect-src 'self'; \
+    frame-src https://www.google.com https://maps.google.com; \
+    object-src 'none'; \
+    base-uri 'self'; \
+    form-action 'self';"
+
+  # Remove server signature header
+  Header unset X-Powered-By
+  Header unset Server
+</IfModule>
+
+# ══════════════════════════════════════════════════════════
+# 3. DENY SENSITIVE FILES
+# ══════════════════════════════════════════════════════════
+<FilesMatch "(^\.htaccess|\.htpasswd|\.env|\.git|composer\.(json|lock)|package\.json|README\.md|schema\.sql)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# Block PHP execution inside upload directories
+<Directory "assets/images/uploads">
+  <FilesMatch "\.php$">
+    <IfModule mod_authz_core.c>
+      Require all denied
+    </IfModule>
+  </FilesMatch>
+</Directory>
+
+# Block access to database folder
+<DirectoryMatch "^.*/database/">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+</DirectoryMatch>
+
+# ══════════════════════════════════════════════════════════
+# 4. FILE UPLOAD SECURITY
+# ══════════════════════════════════════════════════════════
+<FilesMatch "\.(php|php3|php4|php5|phtml|pl|py|jsp|asp|sh|cgi)$">
+  <If "%{REQUEST_URI} =~ m#/assets/images/uploads/#">
+    <IfModule mod_authz_core.c>
+      Require all denied
+    </IfModule>
+  </If>
+</FilesMatch>
+
+# ══════════════════════════════════════════════════════════
+# 5. COMPRESSION (gzip)
+# ══════════════════════════════════════════════════════════
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/json application/xml
+  AddOutputFilterByType DEFLATE image/svg+xml application/font-woff application/font-woff2
+</IfModule>
+
+# ══════════════════════════════════════════════════════════
+# 6. BROWSER CACHING
+# ══════════════════════════════════════════════════════════
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Images — 1 month
+  ExpiresByType image/jpg          "access plus 1 month"
+  ExpiresByType image/jpeg         "access plus 1 month"
+  ExpiresByType image/png          "access plus 1 month"
+  ExpiresByType image/gif          "access plus 1 month"
+  ExpiresByType image/webp         "access plus 1 month"
+  ExpiresByType image/svg+xml      "access plus 1 month"
+  ExpiresByType image/x-icon       "access plus 1 year"
+  ExpiresByType image/ico          "access plus 1 year"
+
+  # CSS & JS — 1 week
+  ExpiresByType text/css           "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType text/javascript    "access plus 1 week"
+
+  # Fonts — 1 year
+  ExpiresByType font/woff          "access plus 1 year"
+  ExpiresByType font/woff2         "access plus 1 year"
+  ExpiresByType application/font-woff  "access plus 1 year"
+  ExpiresByType application/font-woff2 "access plus 1 year"
+
+  # HTML — no cache (always fresh from server)
+  ExpiresByType text/html          "access plus 0 seconds"
+  ExpiresByType application/json   "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Cache-control for static assets
+  <FilesMatch "\.(ico|jpg|jpeg|png|gif|webp|svg|css|js|woff|woff2|ttf|eot)$">
+    Header set Cache-Control "public, max-age=604800, stale-while-revalidate=86400"
+  </FilesMatch>
+
+  # No cache for PHP pages
+  <FilesMatch "\.php$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+</IfModule>
+
+# ══════════════════════════════════════════════════════════
+# 7. ERROR DOCUMENTS
+# ══════════════════════════════════════════════════════════
+ErrorDocument 403 /sd_muhammadiyah/index.php
+ErrorDocument 404 /sd_muhammadiyah/index.php
+ErrorDocument 500 /sd_muhammadiyah/index.php
+
+# ══════════════════════════════════════════════════════════
+# 8. PHP SETTINGS (override php.ini if allowed)
+# ══════════════════════════════════════════════════════════
+<IfModule mod_php.c>
+  php_flag  display_errors    Off
+  php_flag  log_errors        On
+  php_value upload_max_filesize 8M
+  php_value post_max_size      10M
+  php_value memory_limit       128M
+  php_value max_execution_time 60
+  php_value session.cookie_httponly 1
+  php_value session.use_strict_mode 1
+  php_value session.cookie_samesite Strict
+</IfModule>
+
+# ── End of .htaccess ─────────────────────────────────────
